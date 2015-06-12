@@ -6,23 +6,7 @@
 
 
 
-
-
-
-
-// ONE OF THESE IS THE PARENT YOU ACTUALLY WANT
-// _4-u2 mbm _5jmm _5pat _5v3q _2l4l _4-u8 _x72 _50nb
-// <div class="userContentWrapper _5pcr _3ccb"
-
 // For popup photos, <form class = "commentable_item" is another one to watch
-
-
-
-// THIS IS THE SHARED-WITH IDENTIFIER
-// <div class="_6a _29ee _4f-9 _43_1" data-hover="tooltip" id="u_ps_0_0_p"
-//             aria-label="Shared with: Public">
-// </div>
-
 
 
 
@@ -56,12 +40,16 @@ function setPrivacy(node){
 
 function privateFace(node){
 
-  // console.log(node);
   var borders = node.getElementsByClassName('_4-u2');
   Array.prototype.forEach.call(borders, function(el){
     setPrivacy(el);
   });
+
 }
+
+
+
+
 
 
 // MAIN SECTION
@@ -77,13 +65,18 @@ window.onload = function(){
 
 // run any time the DOM adds new children to the document.body
 // throttled down to once a second
-var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 var throttled = false;
+var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
 var observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
+
+    // run if not throttled
     if(mutation.type==="childList" && !throttled) {
-        console.log('redoing this');
+
         privateFace(document.body);
+
+        // throttle back the redraw
         throttled = true;
         setTimeout(function(){
           throttled = false;
