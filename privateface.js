@@ -35,18 +35,10 @@
 function setPrivacy(node){
   var privacyNode = node.querySelector('.fbStreamPrivacy');
   privacyNode = privacyNode || node.querySelector('div[aria-label*="Shared"]');
-  if(!privacyNode){
-    console.log("NO PRIVACY NODE");
-    return;
-  }
-  console.log("Node is:")
-  console.log(node);
-  console.log("Privacy node inside is:")
-  console.log(privacyNode);
+  if(!privacyNode){ return; }
 
   var ariaLabel = privacyNode.getAttribute('aria-label');
-  console.log("XXXX ARIA LABEL XXXX");
-  console.log(ariaLabel);
+  if(!ariaLabel){ return; }
 
   if (ariaLabel.match("Public")){
     node.classList.add('public-post');
@@ -72,20 +64,36 @@ function privateFace(node){
 }
 
 
-
 // MAIN SECTION
 
-// runs once document is loaded
+// run as soon as you've loaded
+privateFace(document.body);
 
-var body = document.body;
-privateFace(body);
-
+// run as soon as everything's loaded
 window.onload = function(){
-  privateFace(body);
-
-  setInterval(function(){
-    privateFace(body);
-  }, 7000);
+  privateFace(document.body);
 };
+
+
+// run any time the DOM adds new children to the document.body
+// throttled down to once a second
+var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+var throttled = false;
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    if(mutation.type==="childList" && !throttled) {
+        console.log('redoing this');
+        privateFace(document.body);
+        throttled = true;
+        setTimeout(function(){
+          throttled = false;
+        }, 200);
+    }
+  });
+});
+
+var config = { attributes: true, childList: true, characterData: true }
+observer.observe(document.body, config);
+
 
 
