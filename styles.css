@@ -1,19 +1,25 @@
 .private-post{
-  border: 2px solid green!important;
+  border: 3px solid #00F!important;
 }
 
+.private-post{
+  border: 3px solid #00F!important;
+}
+
+
+
 .public-post{
-  border: 2px solid red!important;
+  border: 3px solid #F00!important;
 }
 
 .friends-post{
-  border: 2px solid yellow!important;
+  border: 3px solid #FC0!important;
 }
 
 .custom-post{
-  border: 2px solid black!important;
+  border: 3px solid #000!important;
 }
 
 .group-post{
-  border: 2px solid orange!important;
+  border: 3px solid #FF9!important;
 }

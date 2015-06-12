@@ -24,7 +24,7 @@ function setPrivacy(node){
   var ariaLabel = privacyNode.getAttribute('aria-label');
   if(!ariaLabel){ return; }
 
-  if (ariaLabel.match("Public")){
+  if (ariaLabel.match("Public") || ariaLabel.match("Visible to anyone")){
     node.classList.add('public-post');
   } else if(ariaLabel.match("Only Me")){
     console.log("private!");
@@ -66,7 +66,7 @@ window.onload = function(){
 
 
 // run any time the DOM adds new children to the document.body
-// throttled down to once a second
+// throttled down to 5 times a second
 var throttled = false;
 var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
