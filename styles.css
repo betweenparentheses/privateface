@@ -1,0 +1,15 @@
+.private-post{
+  border: 2px solid green!important;
+}
+
+.public-post{
+  border: 2px solid red!important;
+}
+
+.friends-post{
+  border: 2px solid yellow!important;
+}
+
+.custom-post{
+  border: 2px solid black!important;
+}
