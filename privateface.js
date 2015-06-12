@@ -34,6 +34,8 @@ function setPrivacy(node){
     node.classList.add('friends-post');
   } else if (ariaLabel.match("Custom")){
     node.classList.add('custom-post');
+  } else if (ariaLabel.match("Members of")){
+    node.classList.add('group-post')
   }
 };
 
