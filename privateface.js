@@ -24,7 +24,8 @@ function setPrivacy(node){
   var ariaLabel = privacyNode.getAttribute('aria-label');
   if(!ariaLabel){ return; }
 
-  if (ariaLabel.match("Public") || ariaLabel.match("Visible to anyone")){
+  if ( ariaLabel.match("Public") ||
+       ariaLabel.match("Visible to anyone")){
     node.classList.add('public-post');
   } else if(ariaLabel.match("Only Me")){
     console.log("private!");
@@ -34,15 +35,19 @@ function setPrivacy(node){
     node.classList.add('friends-post');
   } else if (ariaLabel.match("Custom")){
     node.classList.add('custom-post');
-  } else if (ariaLabel.match("Members of")){
+  } else if (ariaLabel.match("Members of") ||
+             ariaLabel.match("people invited")){
     node.classList.add('group-post')
   }
 };
 
 
-function privateFace(node){
+// given a DOM element node, finds all Facebook posts
+// that are children of that node and highlights
+// their privacy status
+function privateFace(element){
 
-  var borders = node.getElementsByClassName('_4-u2');
+  var borders = element.getElementsByClassName('_4-u2');
   Array.prototype.forEach.call(borders, function(el){
     setPrivacy(el);
   });
@@ -66,7 +71,6 @@ window.onload = function(){
 
 
 // run any time the DOM adds new children to the document.body
-// throttled down to 5 times a second
 var throttled = false;
 var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
@@ -79,6 +83,7 @@ var observer = new MutationObserver(function(mutations) {
         privateFace(document.body);
 
         // throttle back the redraw
+        // to the rate of this setTimeout
         throttled = true;
         setTimeout(function(){
           throttled = false;
@@ -87,6 +92,7 @@ var observer = new MutationObserver(function(mutations) {
   });
 });
 
+// configure and run the observer
 var config = { attributes: true, childList: true, characterData: true }
 observer.observe(document.body, config);
 
